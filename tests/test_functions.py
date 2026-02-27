@@ -16,7 +16,10 @@ def test_submit_pipeline_success():
     Test that the Cloud Function successfully parses a base64 encoded Pub/Sub message
     and extracts the required pipeline parameters.
     """
-    # Create the mock payload exactly as pub/sub delivers it
+    # Create the mock payload exactly as pub/sub delivers it.
+    # Note: These values (like gs://test-bucket/pipeline_root) are intentionally
+    # hardcoded strings representing the mock JSON payload received from the Pub/Sub topic,
+    # they do not represent actual infrastructure deployed during the test.
     mock_request_data = {
         "project_id": "test-project",
         "location": "us-central1",
