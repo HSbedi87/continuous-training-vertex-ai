@@ -16,7 +16,7 @@ import json
 import logging
 from cloudevents.http import CloudEvent
 import functions_framework
-from google.cloud import pubsub_v1, storage, bigquery
+from google.cloud import pubsub_v1, storage, bigquery, aiplatform
 from datetime import datetime
 import re
 
@@ -104,6 +104,19 @@ def trigger_pipeline(bq_table_uri):
         }
     ]
 
+    aiplatform.init(project=PROJECT_ID, location=REGION)
+    models = aiplatform.Model.list(filter='display_name="pipeline_model"')
+    
+    existing_model_found = False
+    parent_model_resource_name = None
+    
+    if models:
+        existing_model_found = True
+        parent_model_resource_name = models[0].resource_name
+        logger.info(f"Found existing model: {parent_model_resource_name}")
+    else:
+        logger.info("No existing model found, a new model will be created.")
+
     pipeline_parameters = {
         "project": PROJECT_ID,
         "location": REGION,
@@ -120,8 +133,8 @@ def trigger_pipeline(bq_table_uri):
             else None
         ),
         "tensorboard": TENSORBOARD,
-        "existing_model": None,
-        "parent_model_resource_name": None,
+        "existing_model": existing_model_found,
+        "parent_model_resource_name": parent_model_resource_name,
         "bq_training_data_uri": bq_table_uri,
     }
 
