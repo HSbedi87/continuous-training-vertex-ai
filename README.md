@@ -154,8 +154,8 @@ This demo is intended for illustrative purposes and has the following known limi
 You are billed for the entire duration that a persistent resource is in a running state, regardless of whether there is a training job or a pipeline running on the persistent resource. For more details, please refer to the [documentation](https://cloud.google.com/vertex-ai/docs/training/persistent-resource-overview). In order to delete the persistent resource, please follow the steps described on the following [link](https://cloud.google.com/vertex-ai/docs/training/persistent-resource-delete).
 
 ## Authors
-* Harkanwal Bedi (hsbedi@google.com)
-* Rafa Carvalho (rafacarv@google.com)
+* Harkanwal Bedi 
+* Rafa Carvalho
 
 ## Disclaimer
 This is not an officially supported Google product. The code in this repository is for demonstrative purposes only.
