@@ -268,3 +268,22 @@ module "upload_sample" {
   bucket_prefix  = "data"
   depends_on     = [module.apis, module.iam]
 }
+# Output a convenient .env file for local unit testing and development.
+resource "local_file" "test_env" {
+  filename = "../.env"
+  content  = <<-EOT
+    PROJECT_ID=$${data.google_project.project.project_id}
+    REGION=$${var.region}
+    PIPELINE_ROOT=$${module.storage.bucket.url}
+    PERSISTENT_RESOURCE_NAME=$${module.persistent_resource.uri}
+    ARTIFACT_REGISTRY_REPO_KFP_URI=$${local.pipeline_template_path}
+    RUNNER_SERVICE_ACCOUNT_EMAIL=$${module.iam.runner_service_account.email}
+    TRAINING_CONTAINER_IMAGE_URI=$${local.image_training}
+    PRODUCTION_ENDPOINT_ID=$${module.vertex_ai_endpoint_prod.endpoint.id}
+    PREDICTION_CONTAINER_IMAGE_URI=$${var.prediction_container_image_uri}
+    TENSORBOARD=$${module.tensorboard.tensorboard.name}
+    BQ_DATASET=$${module.bigquery.dataset.dataset_id}
+    MODEL_CHECKPOINT_DIR=$${local.model_checkpoint_dir}
+    TRIGGER_PIPELINE_PUBSUB_TOPIC=$${module.pubsub.topic.id}
+  EOT
+}
