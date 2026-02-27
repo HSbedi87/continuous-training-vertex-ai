@@ -108,7 +108,7 @@ locals {
     _ARTIFACT_REGISTRY_REPO_KFP_URI = module.artifact_registry.repo_kfp_uri
     _RUNNER_SERVICE_ACCOUNT_EMAIL   = module.iam.runner_service_account.email
     _PIPELINE_ROOT                  = module.storage.bucket.url
-    _MACHINE_TYPE                   = "n1-standard-4"
+    _MACHINE_TYPE                   = var.training_machine_type
     _PERSISTENT_RESOURCE_NAME       = module.persistent_resource.uri
     _TRAINING_CONTAINER_IMAGE_URI   = local.image_training
     _PREDICTION_CONTAINER_IMAGE_URI = var.prediction_container_image_uri
@@ -237,7 +237,7 @@ module "listen_to_data_ingestion" {
     PRODUCTION_ENDPOINT_ID         = module.vertex_ai_endpoint_prod.endpoint.id
     PREDICTION_CONTAINER_IMAGE_URI = var.prediction_container_image_uri
     PROJECT_ID                     = data.google_project.project.project_id
-    MACHINE_TYPE                   = "n1-standard-4"
+    MACHINE_TYPE                   = var.training_machine_type
     REGION                         = var.region
     RUNNER_SERVICE_ACCOUNT_EMAIL   = module.iam.runner_service_account.email
     TENSORBOARD                    = module.tensorboard.tensorboard.name

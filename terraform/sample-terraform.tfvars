@@ -1,1 +1,5 @@
-project_id = "my-project-id"
+project_id                     = "my-project-id"
+region                         = "us-central1"
+persistent_resource_id         = "my-cluster"
+training_machine_type          = "n1-standard-4"
+prediction_container_image_uri = "us-docker.pkg.dev/vertex-ai/prediction/xgboost-cpu.1-7:latest"
