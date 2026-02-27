@@ -115,7 +115,7 @@ def continous_model_training_deployment_pipeline(
     model_evaluation_task.set_caching_options(False).after(custom_job_task)
     model_evaluation_result = model_evaluation_task.outputs["deploy_decision"]
 
-    with dsl.If(model_evaluation_result == True or True, "Deploy model"):
+    with dsl.If(model_evaluation_result == True, "Deploy model"):
         import_endpoint_task = importer(
             artifact_uri=production_endpoint_id,
             artifact_class=artifact_types.VertexEndpoint,
